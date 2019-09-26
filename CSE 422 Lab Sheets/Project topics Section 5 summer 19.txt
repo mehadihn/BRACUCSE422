@@ -1,9 +1,0 @@
-1. Online Assignment Plagiarism Checker
-2. Disease Classification / Prediction  (Heart Disease, cancer probability, cancer stage, kidney, animal disease)
-3. Share Market Prediction
-4. Recommendation System
-5. Sentiment Analysis
-6. Natural Language Processing  (Fraudulent social media activities, Hate speech, Cyberbullying, online plagiarism checker)
-7. Sales Forecasting
-8. Object Recognition (Image processing)
-9. Spam mail detection
