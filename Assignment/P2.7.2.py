@@ -9,7 +9,7 @@ n = 1
 while(boolean):
     f = str(fact(n))
     #print(f)
-    f1 = list(f)
+    f1 = str(f)
     sum = 0
     for i in range (len(f1)):
         sum = sum + int(f[i])

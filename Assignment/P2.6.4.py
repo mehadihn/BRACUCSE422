@@ -21,7 +21,6 @@ print(listA)
 x = np.array(listA)
 #print(x)
 l = []
-j = 0
 for i in range(x.shape[1]):
     j = 0
     k = []
