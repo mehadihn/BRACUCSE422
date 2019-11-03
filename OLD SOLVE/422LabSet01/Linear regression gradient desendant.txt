@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+file = pd.read_csv('gradientdata.csv', header = None)
+var = pd.DataFrame(file)
+file = file.dropna()
+x = file.iloc[:,0]
+y = file.iloc[:,1]
+plt.scatter(x,y)
+
+m = 0.05
+c = 0.02
+learning_rate= 0.0001
+data = [x,y]
+
+#error = computeErrorForLineGivenPoints(0.002, 0.005, data)
+
+def computeErrorForLineGivenPoints(c, m, data): 
+
+            totalError = 0 
+            for i in range(0, len(data)): 
+             totalError += (y[i] - (m * x[i] + c)) ** 2 
+            # return Sum(error) / N
+            return totalError / float(len(data))
+
+computeErrorForLineGivenPoints(c, m, data)
+num_iteartions = len(data)
+
+for i in range(len(data)):
+    y_predict = m*x + c
+plt.plot(x,y_predict,'k-')
+plt.scatter(x, y)
+plt.show()
+print("Done!")
+
+def stepGradient(c, m, data, learning_rate):   
+    c_gradient = 0 
+    m_gradient = 0 
+    N = float(len(data)) 
+    for i in range(0, len(data)): 
+        c_gradient += -(2/N) * (y[i] - ((m*x[i]) +  c)) 
+        m_gradient += -(2/N) * x[i] * (y[i] - ((m * x[i]) + c)) 
+        new_c = c - (learning_rate * c_gradient) 
+        new_m = m - (learning_rate * m_gradient) 
+    return [new_c, new_m]
+    
+stepGradient(c, m, data, learning_rate)
+
+numb_iteartions = 200000
+for i in range(numb_iteartions):
+        c,m = stepGradient(c, m, data , learning_rate)
+
+for i in range(len(data)):
+    y_predict = m*x + c
+plt.plot(x,y_predict,'k-')
+plt.scatter(x, y)
+plt.show()
+print("Done!")

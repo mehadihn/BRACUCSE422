@@ -1,0 +1,114 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+data = pd.read_csv('Logistic_Regression_File.csv',delimiter="	",skiprows=1,header=None)
+data
+X= np.array(data.iloc[0:99,0:2])
+Y = np.array(data.iloc[0:99][2])
+Y
+scaler = MinMaxScaler()
+MinMaxScaler(copy=True, feature_range=(0, 1))
+print(scaler.fit(X))
+print(scaler.data_max_)
+X
+X_norm = scaler.transform(X)
+X_norm
+ones = np.ones(len(data)-1)
+ones = ones.reshape(99,1)
+ones.shape
+X_norm.shape
+X_norm_ones = np.concatenate((ones,X_norm), axis=1)
+def plot_reg(X, y, beta): 
+    ''' 
+    function to plot decision boundary 
+    '''
+    # labelled observations 
+    x_0 = X[np.where(y == 0.0)] 
+    x_1 = X[np.where(y == 1.0)] 
+      
+    # plotting points with diff color for diff label 
+    plt.scatter([x_0[:, 1]], [x_0[:, 2]], c='b', label='y = 0') 
+    plt.scatter([x_1[:, 1]], [x_1[:, 2]], c='r', label='y = 1') 
+      
+    # plotting decision boundary 
+    x1 = np.arange(0, 1, 0.1) 
+    x2 = -(beta[0,0] + beta[0,1]*x1)/beta[0,2] 
+    plt.plot(x1, x2, c='k', label='reg line') 
+  
+    plt.xlabel('x1') 
+    plt.ylabel('x2') 
+    plt.legend() 
+    plt.show()
+beta = np.matrix([1,10,10])
+beta
+beta[0,0]
+beta[0,1]
+def plot_reg_nob(X, y): 
+    ''' 
+    function to plot decision boundary 
+    '''
+    # labelled observations 
+    x_0 = X[np.where(y == 0.0)] 
+    x_1 = X[np.where(y == 1.0)] 
+      
+    # plotting points with diff color for diff label 
+    plt.scatter([x_0[:, 1]], [x_0[:, 2]], c='b', label='y = 0') 
+    plt.scatter([x_1[:, 1]], [x_1[:, 2]], c='r', label='y = 1') 
+  
+    plt.xlabel('x1') 
+    plt.ylabel('x2') 
+    plt.legend() 
+    plt.show()
+X_norm_ones.shape
+plot_reg_nob(X_norm_ones, Y)
+plot_reg(X_norm_ones,Y,beta)
+def grad_desc(X, y, beta, lr=.01, converge_change=.001): 
+    ''' 
+    gradient descent function 
+    '''
+    cost = cost_func(beta, X, y) 
+    change_cost = 1
+    num_iter = 1
+      
+    while(change_cost > converge_change): 
+        old_cost = cost 
+        beta = beta - (lr * log_gradient(beta, X, y)) 
+        cost = cost_func(beta, X, y) 
+        change_cost = old_cost - cost 
+        num_iter += 1
+      
+    return beta, num_iter  
+
+def log_gradient(beta, X, y): 
+    ''' 
+    logistic gradient function 
+    '''
+    first_calc = logistic_func(beta, X) - y.reshape(X.shape[0], -1) 
+    final_calc = np.dot(first_calc.T, X) 
+    return final_calc
+
+def logistic_func(beta, X):
+    return 1.0/(1 + np.exp(-(np.dot(X, beta.T))))
+
+def cost_func(beta, X, y): 
+    ''' 
+    cost function, J 
+    '''
+    log_func_v = logistic_func(beta, X) 
+    y = np.squeeze(y) 
+    step1 = y * np.log(log_func_v) 
+    step2 = (1 - y) * np.log(1 - log_func_v) 
+    final = -step1 - step2 
+    return np.mean(final)
+beta_new, num_iters = grad_desc(X_norm_ones, Y, beta)
+print(beta_new, num_iters)
+plot_reg(X_norm_ones,Y,beta_new)
+def pred_values(beta, X): 
+    ''' 
+    function to predict labels 
+    '''
+    pred_prob = logistic_func(beta, X) 
+    pred_value = np.where(pred_prob >= .5, 1, 0) 
+    return np.squeeze(pred_value)
+print(pred_values(beta_new, np.array([1,0.4,0.3])))
