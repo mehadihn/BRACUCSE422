@@ -9,10 +9,13 @@ data=pd.read_csv('StockPriceData.csv',delimiter=',')
 df= data[["Adj Close"]]
 print(df)
 d=data.dropna()
-print(d)
+#print(d)
 X=d.index.values.reshape(-1,1)
+print("Printing X")
+print(X)
 Y=d['Adj Close'].values.reshape(-1,1)
-
+print("Printing Y")
+print(Y)
 
 plt.scatter(X,Y)
 #plt.show()
