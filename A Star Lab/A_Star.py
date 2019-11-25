@@ -23,7 +23,9 @@ dest = data.columns[1]
 island = data.columns[2]
 
 for i in range(1,len(data),1):
+    print(G.edges.data())
     G.add_edge(data[start][i], data[dest][i], weight=data[island][i])
+
     
 #A* Search
 print("Optimal Route Between",start , "& Destination",dest,":")
