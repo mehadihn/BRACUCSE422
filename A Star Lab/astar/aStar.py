@@ -30,7 +30,7 @@ for i in range(1,len(data),1):
     heuristic[key] = 1
 #Adding values to the dictionary
 for i in range(1,len(data),1):
-        heuristic[data[start][i]] = data[data.columns[1]][i]
+    heuristic[data[start][i]] = data[data.columns[1]][i]
 
 #Graph Class
 class graph:
