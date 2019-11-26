@@ -13,39 +13,28 @@ for i in range(1,len(data),1):
     adjList.setdefault(key, [])
     key = data[dest][i]
     adjList.setdefault(key, [])
-    #adjLsit[key].append(1)
-
-#print(adjList)
 
 #Inputing Values to that coresponding keys
 for i in range(1,len(data),1):
     adjList[data[start][i]].append((data[dest][i] , data[island][i]))
     adjList[data[dest][i]].append((data[start][i] , data[island][i]))
-    
-#print(adjList)
-#graph1 = graph(adjList)
-
 
 #Creating Heuristic
 data = pd.read_csv('Heuristic.csv' , delimiter = ',')
 
 heuristic = {}
-temp = int(data.columns[1]) ## as it gives str so converting to int
-heuristic.setdefault(data.columns[0], [temp])
-
-
+heuristic[data.columns[0]] = int(data.columns[1])
+#Initializing the dictionary with keys
 for i in range(1,len(data),1):
     key = data[start][i]
-    heuristic.setdefault(key, [])
-
+    heuristic[key] = 1
+#Adding values to the dictionary
 for i in range(1,len(data),1):
-    heuristic[data[data.columns[0]][i]].append(data[data.columns[1]][i])
+        heuristic[data[start][i]] = data[data.columns[1]][i]
 
-#print(heuristic)
-
-
+#Graph Class
 class graph:
-    #constructing
+    #constructor
     def __init__(self, adjList, heuristic):
         self.adjList = adjList
         self.heuristic = heuristic
