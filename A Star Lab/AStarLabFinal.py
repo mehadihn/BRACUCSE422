@@ -99,8 +99,7 @@ class Graph:
 
 
             for (m, weight) in self.get_neighbors(n):
-
-
+                
                 if m not in open_list and m not in closed_list:
                     open_list.add(m)
                     parents[m] = n
