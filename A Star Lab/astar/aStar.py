@@ -80,8 +80,8 @@ class graph:
               path.append(start)
               path.reverse()
               
-              for i in path:
-                 print(adjList[i])
+              #for i in path:
+                 #print(adjList[i])
               
               
               
@@ -103,7 +103,7 @@ class graph:
                       if i in closeList:
                           closeList.remove(i)
                           openList.add(i)
-                          
+          print(parents)                
           openList.remove(node)
           closeList.add(node)                            
             
@@ -114,6 +114,6 @@ class graph:
 
 graph = graph(adjList , heuristic) 
 #print(graph.get_neighbors("D"))  
-graph.aStarSearch('C','X')    
+graph.aStarSearch(start,dest)    
       
 
