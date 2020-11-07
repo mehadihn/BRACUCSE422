@@ -2,7 +2,7 @@
 """
 Created on Fri Oct 25 22:15:12 2019
 
-@author: Mehadi Hassan
+@author
 """
 
 # -*- coding: utf-8 -*-
